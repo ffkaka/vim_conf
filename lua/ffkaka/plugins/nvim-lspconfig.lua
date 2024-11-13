@@ -165,13 +165,13 @@ return { -- LSP Configuration & Plugins
 						plugins = {
 							pycodestyle = {
 								enabled = true,
-								ignore = { "E501", "E231", "E261" },
+								ignore = { "E501", "E231", "E261", "E302", "E701", "E704" },
 							},
 						},
 					},
 				},
 			},
-			jdtls = {},
+			-- jdtls = {},
 			cmake = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -198,10 +198,10 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 			htmlhint = {},
-			htmlbeautifier = {},
+			-- htmlbeautifier = {},
 		}
 
-		require("java").setup()
+		-- require("java").setup()
 
 		-- Ensure the servers and tools above are installed
 		--  To check the current status of installed tools and/or manually install
@@ -209,7 +209,9 @@ return { -- LSP Configuration & Plugins
 		--    :Mason
 		--
 		--  You can press `g?` for help in this menu.
-		require("mason").setup()
+		require("mason").setup({
+			pip = {},
+		})
 
 		-- You can add other tools here that you want Mason to install
 		-- for you, so that they are available from within Neovim.
