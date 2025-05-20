@@ -1,4 +1,6 @@
 # Things to do for evironment
+need at least neovim v0.11.1
+
 ```bash
 $ brew install 
 $ brew tap homebrew/cask-fonts
