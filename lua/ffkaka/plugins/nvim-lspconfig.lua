@@ -2,8 +2,13 @@ return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
-		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-		{ "williamboman/mason-lspconfig.nvim" },
+		{ "williamboman/mason.nvim",          config = true }, -- NOTE: Must be loaded before dependants
+		{ 
+			"williamboman/mason-lspconfig.nvim",
+			opts = {
+				automatic_installation = true, -- 더 이상 enable() 호출 안함
+			},
+		},
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 
 		-- Useful status updates for LSP.
@@ -172,7 +177,7 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 			jdtls = {
-				ft = { "java" },
+				filetypes = { "java" },
 			},
 			cmake = {},
 			-- rust_analyzer = {},
@@ -186,16 +191,25 @@ return { -- LSP Configuration & Plugins
 			--
 
 			lua_ls = {
-				-- cmd = {...},
-				-- filetypes = { ...},
-				-- capabilities = {},
 				settings = {
 					Lua = {
+						diagnostics = {
+							globals = { "vim" }, -- 'vim'을 글로벌 변수로 인식하도록 설정
+						},
+						runtime = {
+							version = "LuaJIT", -- Neovim은 LuaJIT을 사용합니다.
+							path = vim.split(package.path, ";"),
+						},
 						completion = {
 							callSnippet = "Replace",
 						},
-						-- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-						-- diagnostics = { disable = { 'missing-fields' } },
+						workspace = {
+							library = vim.api.nvim_get_runtime_file("", true), -- Neovim의 runtime 파일을 workspace에 추가
+							checkThirdParty = false,      -- 제3자 라이브러리 경고 비활성화
+						},
+						telemetry = {
+							enable = false, -- 원격 텔레메트리 비활성화
+						},
 					},
 				},
 			},
