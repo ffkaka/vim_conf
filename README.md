@@ -23,6 +23,13 @@ $ sudo apt install fzf
 $ sudo apt install fonts-meslo
 ```
 
+## for jdtls setup
+download jdtls from https://download.eclipse.org/jdtls/milestones/
+extract it to ${HOME}/java/
+replace org.eclipse.equinox.launcher_*.jar file location in nvim-jdtls.lua to the extracted location
+### for project
+make a .project and .classpath file in the project root directory
+
 ## for video reference
 https://youtu.be/m8C0Cq9Uv9o?si=9d1DER-YaQUBqQim
 
