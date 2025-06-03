@@ -86,6 +86,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --
 --require("ffkaka.core.options")
 require("ffkaka.lazy")
+vim.cmd("colorscheme tokyonight-night") -- Set colorscheme to Tokyo Night
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`

@@ -2,8 +2,8 @@ return { -- LSP Configuration & Plugins
 	"neovim/nvim-lspconfig",
 	dependencies = {
 		-- Automatically install LSPs and related tools to stdpath for Neovim
-		{ "williamboman/mason.nvim",          config = true }, -- NOTE: Must be loaded before dependants
-		{ 
+		{ "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+		{
 			"williamboman/mason-lspconfig.nvim",
 			opts = {
 				automatic_installation = true, -- 더 이상 enable() 호출 안함
@@ -13,11 +13,11 @@ return { -- LSP Configuration & Plugins
 
 		-- Useful status updates for LSP.
 		-- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-		{ "j-hui/fidget.nvim", opts = {} },
+		{ "j-hui/fidget.nvim",       opts = {} },
 
 		-- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
 		-- used for completion, annotations and signatures of Neovim apis
-		{ "folke/neodev.nvim", opts = {} },
+		{ "folke/neodev.nvim",       opts = {} },
 	},
 	config = function()
 		-- Brief aside: **What is LSP?**
@@ -162,7 +162,9 @@ return { -- LSP Configuration & Plugins
 		--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 		local servers = {
 			clangd = {},
-			gopls = {},
+			gopls = {
+				capabilities = { require("cmp_nvim_lsp").default_capabilities() },
+			},
 			pyright = {},
 			pylsp = {
 				settings = {
@@ -176,9 +178,6 @@ return { -- LSP Configuration & Plugins
 					},
 				},
 			},
-			jdtls = {
-				filetypes = { "java" },
-			},
 			cmake = {},
 			-- rust_analyzer = {},
 			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -189,6 +188,18 @@ return { -- LSP Configuration & Plugins
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			-- tsserver = {},
 			--
+			deno = {
+				-- root_dir = require("lspconfig.util").root_pattern({ "deno.json", "deno.jsonc", "deno.lock" }),
+				on_attach = function(client, bufnr)
+					client.server_capabilities.documentFormattingProvider = false
+				end,
+				-- 기존 옵션 유지
+				filetypes = { "html", "javascript", "typescript" },
+				init_options = {
+					lint = false,
+					format = false,
+				},
+			},
 
 			lua_ls = {
 				settings = {
@@ -214,9 +225,14 @@ return { -- LSP Configuration & Plugins
 				},
 			},
 			html = {
+				on_attach = function(client, bufnr)
+					client.server_capabilities.documentFormattingProvider = false
+				end,
 				filetypes = { "html" },
-				capabilities = {
-					require("cmp_nvim_lsp").default_capabilities(),
+				capabilities = { require("cmp_nvim_lsp").default_capabilities(), },
+				lint = {
+					enable = false,
+					-- You can add more HTML linting rules here if needed
 				},
 			},
 		}

@@ -23,8 +23,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
 	-- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
 	"tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
-	"github/copilot.vim", -- GitHub Copilot integration
 
+	"junegunn/fzf.vim",
+
+	require("ffkaka.plugins.copilot"),
 	require("ffkaka.plugins.nvim-lastplace"), -- Open with last cursor position
 	require("ffkaka.plugins.tagbar"),
 	require("ffkaka.plugins.surround"),
@@ -88,13 +90,16 @@ require("lazy").setup({
 	--
 	-- Use the `dependencies` key to specify the dependencies of a particular plugin
 
+	-- should be before nvim-lspconfig
 	require("ffkaka.plugins.telescope"),
 
-	-- nvim-java for java development
-	require("ffkaka.plugins.nvim-java"),
+	require("ffkaka.plugins.codecompanion"),
 
 	-- LSP and completion
 	require("ffkaka.plugins.nvim-lspconfig"),
+
+	-- jdtls for java development
+	require("ffkaka.plugins.nvim-jdtls"),
 
 	{ -- Autoformat
 		"stevearc/conform.nvim",
@@ -115,7 +120,7 @@ require("lazy").setup({
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
-				local disable_filetypes = { c = true, cpp = true }
+				local disable_filetypes = { c = true, cpp = true, html = true, }
 				return {
 					timeout_ms = 500,
 					lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
@@ -139,58 +144,8 @@ require("lazy").setup({
 	{ -- You can easily change to a different colorscheme.
 		-- Change the name of the colorscheme plugin below, and then
 		-- change the command in the config to whatever the name of that colorscheme is.
-		--
 		-- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-		-- "folke/tokyonight.nvim",
-		-- "EdenEast/nightfox.nvim",
-		"catppuccin/nvim",
-		name = "catppuccin",
-		opts = {
-			no_italic = true,
-			term_colors = true,
-			transparent_background = false,
-			styles = {
-				comments = {},
-				conditionals = {},
-				loops = {},
-				functions = {},
-				keywords = {},
-				strings = {},
-				variables = {},
-				numbers = {},
-				booleans = {},
-				properties = {},
-				types = {},
-			},
-			color_overrides = {
-				mocha = {
-					base = "#121212",
-					crust = "#161616",
-					mantle = "#202020",
-				},
-			},
-			integrations = {
-				telescope = {
-					enabled = true,
-					style = "nvchad",
-				},
-				dropbar = {
-					enabled = true,
-					color_mode = true,
-				},
-			},
-		},
-		priority = 1000, -- Make sure to load this before all the other start plugins.
-		init = function()
-			-- Load the colorscheme here.
-			-- Like many other themes, this one has different styles, and you could load
-			-- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-			-- vim.cmd.colorscheme("catppuccin")
-			vim.cmd.colorscheme("catppuccin-mocha")
-
-			-- You can configure highlights by doing something like:
-			vim.cmd.hi("Comment gui=none")
-		end,
+		require("ffkaka.plugins.theme.tokyonight"),
 	},
 
 	-- Highlight todo, notes, etc in comments
@@ -223,7 +178,7 @@ require("lazy").setup({
 	--    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
 	-- { import = 'custom.plugins' },
 	--
-	require("ffkaka.plugins.avanteai"),
+	-- require("ffkaka.plugins.avanteai"),
 }, {
 	ui = {
 		-- If you are using a Nerd Font: set icons to an empty table which will use the

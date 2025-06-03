@@ -4,6 +4,7 @@ need at least neovim v0.11.1
 nvim-lspconfig need to do a more job
 ```bash
 $ git clone https://github.com/neovim/nvim-lspconfig ~/.config/nvim/pack/nvim/start/nvim-lspconfig
+$ npm i -g pyright neovim
 ```
 
 ```bash

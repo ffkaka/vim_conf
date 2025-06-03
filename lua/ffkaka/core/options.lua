@@ -13,6 +13,8 @@ vim.g.have_nerd_font = true
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
+-- Set the default encoding to UTF-8
+vim.opt.encoding = "utf-8"
 
 -- Make line numbers default
 vim.opt.number = false
@@ -72,7 +74,7 @@ vim.opt.cursorcolumn = true
 vim.opt.scrolloff = 10
 
 -- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
+--  See `:help vim.keymap.set()`option
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true

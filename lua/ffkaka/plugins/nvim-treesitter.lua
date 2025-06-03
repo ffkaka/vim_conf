@@ -29,6 +29,7 @@ return { -- Highlight, edit, and navigate code
 			"luadoc",
 			"make",
 			"markdown",
+			"markdown_inline",
 			"passwd",
 			"printf",
 			"promql",
