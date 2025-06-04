@@ -150,8 +150,30 @@ return {
 			capabilities = capabilities,
 		}
 
-		print("Starting JDTLS for project: " .. project_name)
 		-- Start or attach JDTLS
 		jdtls.start_or_attach(config)
+
+		vim.api.nvim_create_autocmd("FileType", {
+			pattern = "java",
+			callback = function()
+				local jdtls = require("jdtls")
+
+				-- 현재 버퍼에 jdtls가 attach되어 있는지 확인
+				local active_clients = vim.lsp.get_active_clients({ bufnr = 0 })
+				local jdtls_attached = false
+				for _, client in ipairs(active_clients) do
+					if client.name == "jdtls" then
+						jdtls_attached = true
+						break
+					end
+				end
+
+				-- attach 되어 있지 않으면 start_or_attach 호출
+				if not jdtls_attached then
+					jdtls.start_or_attach(config)
+				end
+			end,
+		})
 	end,
+	-- Automatically attach JDTLS when opening a Java file
 }
