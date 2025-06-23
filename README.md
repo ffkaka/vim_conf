@@ -29,6 +29,7 @@ extract it to ${HOME}/java/
 replace org.eclipse.equinox.launcher_*.jar file location in nvim-jdtls.lua to the extracted location
 ### for project
 make a .project and .classpath file in the project root directory
+need "jdtls/bin" directory to be executable
 
 ## for video reference
 https://youtu.be/m8C0Cq9Uv9o?si=9d1DER-YaQUBqQim
