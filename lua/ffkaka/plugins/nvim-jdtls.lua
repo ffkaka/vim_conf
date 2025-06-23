@@ -3,11 +3,27 @@ return {
 	ft = { "java" },
 	config = function()
 		local jdtls = require("jdtls")
-
 		-- Determine OS
 		local home = os.getenv("HOME")
 		local workspace_path = home .. "/java/eclipse/workspace/"
-		local os_config = "linux"
+		-- 현재 운영체제(OS)를 확인하는 함수
+		local function get_os()
+			local os_name = vim.loop.os_uname().sysname
+			if os_name == "Darwin" then
+				local arch = vim.loop.os_uname().arch
+				if arch == "arm" then
+					return "mac_arm"
+				else
+					return "mac"
+				end
+			elseif os_name == "Linux" then
+				return "linux"
+			else
+				return os_name -- 기타 OS 이름 반환
+			end
+		end
+
+		local os_config = get_os()
 
 		-- Find root of project
 		-- local root_markers = { ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }
@@ -98,19 +114,19 @@ return {
 						runtimes = {
 							{
 								name = "JavaSE-21",
-								path = "/home/deploy/java/jdk-21.0.6/",
+								path = home .. "/java/jdk-21/",
 							},
 							{
 								name = "JavaSE-11",
-								path = "/home/deploy/java/jdk-11.0.27+6/",
+								path = home .. "/java/jdk-11/",
 							},
 							{
 								name = "JavaSE-17",
-								path = "/home/deploy/java/jdk-17.0.14/",
+								path = home .. "/java/jdk-17/",
 							},
 							{
 								name = "JavaSE-1.8",
-								path = "/home/deploy/java/jdk8u442-b06/",
+								path = home .. "/java/jdk-1.8/",
 							},
 						},
 					},
@@ -142,7 +158,7 @@ return {
 				"-Dlog.protocol=true",
 				"-Dlog.level=ALL",
 				"-Xms1g",
-				"-jar", "/home/deploy/java/jdtls_1.45.0/plugins/org.eclipse.equinox.launcher_1.6.1000.v20250131-0606.jar",
+				"-jar", home .. "/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.1000.v20250131-0606.jar",
 				"-configuration", home .. "/java/jdtls/config_" .. os_config,
 				"-data", workspace_dir,
 			},
