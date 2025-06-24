@@ -21,6 +21,7 @@ $ sudo apt install ripgrep
 $ sudo apt install fzf
 # install font-eslo-lg-nerd-font in ubuntu
 $ sudo apt install fonts-meslo
+$ sudo apt install python3-venv   # mason uses venv for installing packages
 ```
 
 ## for jdtls setup
