@@ -41,3 +41,16 @@ https://github.com/nvim-lua/kickstart.nvim
 ## for gopls
 go install golang.org/x/tools/gopls@latest
 set env GOPATH=$HOME/go
+
+## kernel development with clangd
+``` bash
+$ apt install bear
+$ git clone linux-kernelsource
+$ cd linux-kernelsource
+# changes reqired kconfigs
+$ make defconfig
+$ bear -- make -j8
+# compile_commands.json will be generated
+# clangd will use this file to understand the project
+
+```
