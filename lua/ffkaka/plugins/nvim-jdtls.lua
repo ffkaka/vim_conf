@@ -1,4 +1,8 @@
 return {
+	-- You can set java development environment as like this.
+	-- $HOME/java/jdk-21
+	-- $HOME/java/jdtls
+	-- $HOME/java/eclipse/workspace
 	"mfussenegger/nvim-jdtls",
 	ft = { "java" },
 	config = function()
@@ -6,6 +10,23 @@ return {
 		-- Determine OS
 		local home = os.getenv("HOME")
 		local workspace_path = home .. "/java/eclipse/workspace/"
+		local function find_equinox_launcher_jars()
+			local jars = {}
+			local handle = io.popen("ls " ..
+				home .. "/java/jdtls/plugins/org.eclipse.equinox.launcher*_*.jar 2>/dev/null")
+			if handle then
+				for line in handle:lines() do
+					table.insert(jars, line)
+					break
+				end
+				handle:close()
+			end
+			return jars
+		end
+
+		-- 사용 예시:
+		local jdtls_jar = find_equinox_launcher_jars()[1]
+		--
 		-- 현재 운영체제(OS)를 확인하는 함수
 		local function get_os()
 			local os_name = vim.loop.os_uname().sysname
@@ -158,7 +179,7 @@ return {
 				"-Dlog.protocol=true",
 				"-Dlog.level=ALL",
 				"-Xms1g",
-				"-jar", home .. "/java/jdtls/plugins/org.eclipse.equinox.launcher_1.6.1000.v20250131-0606.jar",
+				"-jar", jdtls_jar,
 				"-configuration", home .. "/java/jdtls/config_" .. os_config,
 				"-data", workspace_dir,
 			},

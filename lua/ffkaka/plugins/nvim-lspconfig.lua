@@ -190,7 +190,7 @@ return { -- LSP Configuration & Plugins
 			-- But for many setups, the LSP (`tsserver`) will work just fine
 			-- tsserver = {},
 			--
-			deno = {
+			denols = {
 				-- root_dir = require("lspconfig.util").root_pattern({ "deno.json", "deno.jsonc", "deno.lock" }),
 				on_attach = function(client, bufnr)
 					client.server_capabilities.documentFormattingProvider = false
