@@ -25,9 +25,31 @@ $ sudo apt install python3-venv   # mason uses venv for installing packages
 ```
 
 ## for jdtls setup
-download jdtls from https://download.eclipse.org/jdtls/milestones/
-extract it to ${HOME}/java/
-replace org.eclipse.equinox.launcher_*.jar file location in nvim-jdtls.lua to the extracted location
+* download jdtls from https://download.eclipse.org/jdtls/milestones/
+* extract it to ${HOME}/java/jdtls
+* download jdk and extract it to ${HOME}/java/jdk-version
+```
+/home/user/java/
+├── jdtls
+│   ├── bin
+│   ├── config_linux
+│   └── plugins
+├── jdk-17
+│      ├── bin
+│      ├── config
+│      ├── include
+│      ├── lib
+│      └── src.zip
+└── jdk-21
+    ├── bin
+    ├── config
+    ├── include
+    ├── lib
+    └── src.zip
+
+```
+* make sure jdtls is executable
+
 ### for project
 make a .project and .classpath file in the project root directory
 need "jdtls/bin" directory to be executable
