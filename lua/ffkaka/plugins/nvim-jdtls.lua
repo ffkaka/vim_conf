@@ -73,19 +73,19 @@ return {
 							runtimes = {
 								{
 									name = "JavaSE-21",
-									path = home .. "/java/jdk-21/",
+									path = home .. "/java/jdk-21",
 								},
 								{
 									name = "JavaSE-11",
-									path = home .. "/java/jdk-11/",
+									path = home .. "/java/jdk-11",
 								},
 								{
 									name = "JavaSE-17",
-									path = home .. "/java/jdk-17/",
+									path = home .. "/java/jdk-17",
 								},
 								{
 									name = "JavaSE-1.8",
-									path = home .. "/java/jdk-1.8/",
+									path = home .. "/java/jdk-1.8",
 								},
 							},
 						},
@@ -97,7 +97,7 @@ return {
 								"org.junit.jupiter.api.Assertions.*",
 								"java.util.Objects.requireNonNull",
 								"java.util.Objects.requireNonNullElse",
-								"org.mockito.Mockito.*"
+								"org.mockito.Mockito.*",
 							},
 							filteredTypes = {
 								"com.sun.*",
@@ -110,7 +110,7 @@ return {
 					},
 				},
 				cmd = {
-					"java",
+					os.getenv("JAVA_HOME") .. "/bin/java",
 					"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 					"-Dosgi.bundles.defaultStartLevel=4",
 					"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -119,8 +119,10 @@ return {
 					"-Xms1g",
 					"-jar",
 					launcher_jar,
-					"-configuration", home .. "/java/jdtls/config_" .. os_config,
-					"-data", workspace_dir,
+					"-configuration",
+					home .. "/java/jdtls/config_" .. os_config,
+					"-data",
+					workspace_dir,
 				},
 				root_dir = root_dir,
 				capabilities = capabilities,
