@@ -5,8 +5,9 @@ return {
 		"nvim-lua/plenary.nvim",
 		"nvim-treesitter/nvim-treesitter",
 		"ravitemer/mcphub.nvim",
-		-- for pretty chat
-		"MeanderingProgrammer/render-markdown.nvim",
+
+		-- uncomment the under line for pretty chat
+		-- "MeanderingProgrammer/render-markdown.nvim",
 	},
 	config = function(_, opts)
 		require("codecompanion").setup({
