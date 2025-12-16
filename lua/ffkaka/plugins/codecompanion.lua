@@ -7,7 +7,7 @@ return {
 		"ravitemer/mcphub.nvim",
 
 		-- uncomment the under line for pretty chat
-		-- "MeanderingProgrammer/render-markdown.nvim",
+		"MeanderingProgrammer/render-markdown.nvim",
 	},
 	config = function(_, opts)
 		require("codecompanion").setup({
@@ -21,6 +21,11 @@ return {
 					},
 				},
 			},
+		})
+
+		-- Toggle render-markdown
+		vim.keymap.set("n", "<leader>tm", "<cmd>RenderMarkdown toggle<CR>", {
+			desc = "[T]oggle [M]arkdown rendering"
 		})
 	end,
 }
