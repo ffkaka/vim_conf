@@ -166,7 +166,11 @@ return { -- LSP Configuration & Plugins
 			},
 			gopls = {
 				capabilities = { require("cmp_nvim_lsp").default_capabilities() },
-				buildFlag = { "-mod=mod", "-tags=integration" },
+				settings = {
+					gopls = {
+						buildFlags = { "-mod=mod", "-tags=integration" },
+					},
+				},
 			},
 			pyright = {},
 			pylsp = {
